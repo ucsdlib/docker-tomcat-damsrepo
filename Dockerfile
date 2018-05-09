@@ -15,6 +15,13 @@ RUN mv /tmp/damsrepo/src/lib2/postgresql-9.2-1002.jdbc4.jar /pub/dams/
 FROM tomcat:7-jre8
 MAINTAINER "Matt Critchlow <mcritchlow@ucsd.edu">
 
+# Environment defaults. Obviously, uh, *development*
+ENV MANAGER_USER tomcat
+ENV MANAGER_PASS tomcat
+ENV DAMS_USER dams
+ENV DAMS_PASS dams
+
+
 # setup config and other required files
 COPY tomcat/tomcat-users.xml /usr/local/tomcat/conf/tomcat-users.xml
 COPY tomcat/server.xml /usr/local/tomcat/conf/server.xml
