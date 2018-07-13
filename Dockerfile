@@ -12,7 +12,7 @@ RUN mv /tmp/damsrepo/dist/dams.war /pub/dams/
 RUN mv /tmp/damsrepo/src/properties/jhove.conf /pub/dams/
 RUN mv /tmp/damsrepo/src/lib2/postgresql-9.2-1002.jdbc4.jar /pub/dams/
 
-FROM tomcat:7-jre8
+FROM tomcat:7-jre8-alpine
 MAINTAINER "Matt Critchlow <mcritchlow@ucsd.edu">
 
 # Environment defaults. Obviously, uh, *development*
@@ -20,6 +20,14 @@ ENV MANAGER_USER tomcat
 ENV MANAGER_PASS tomcat
 ENV DAMS_USER dams
 ENV DAMS_PASS dams
+
+# Install dockerize for postgres dependency
+RUN apk add --no-cache openssl
+
+ENV DOCKERIZE_VERSION v0.6.1
+RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+    && tar -C /usr/local/bin -xzvf dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+    && rm dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
 
 # setup config and other required files
