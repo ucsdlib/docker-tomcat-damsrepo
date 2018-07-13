@@ -1,9 +1,9 @@
 # Multistage build
 # We need to build damsrepo first and then copy the war to tomcat
-FROM openjdk:8 as damsrepo-builder
+FROM openjdk:8-alpine as damsrepo-builder
 MAINTAINER "Matt Critchlow <mcritchlow@ucsd.edu">
 
-RUN apt-get update && apt-get install -y git ant
+RUN apk add --no-cache apache-ant git
 RUN git clone https://github.com/ucsdlib/damsrepo.git /tmp/damsrepo
 WORKDIR /tmp/damsrepo
 RUN ant webapp
