@@ -34,10 +34,6 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
 COPY tomcat/tomcat-users.xml /usr/local/tomcat/conf/tomcat-users.xml
 COPY tomcat/server.xml /usr/local/tomcat/conf/server.xml
 
-# Install solr
-COPY solr /usr/local/tomcat/solr/
-ADD solr.war /usr/local/tomcat/webapps/
-
 # Install damsrepo and friends
 RUN mkdir -p /pub/dams/editBackups
 RUN mkdir -p /pub/dams/xsl
